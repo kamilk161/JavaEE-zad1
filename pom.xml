@@ -1,10 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.example</groupId>
+	<groupId>pl.kkrampa</groupId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Java EE 6 - Servlet and JSP demo</name>
+	<name>Java EE 6 - zad1</name>
 	<url>http://maven.apache.org</url>
 	<repositories>
 		<!-- Several key Java EE APIs and RIs are missing from the Maven Central 
@@ -48,7 +48,7 @@
 
 	</dependencies>
 	<build>
-		<finalName>servletjspdemo</finalName>
+		<finalName>zad1</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -70,19 +70,21 @@
 
 			<!-- Embedded Jetty (jetty:run) -->
 			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
+				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
-				<version>8.0.3.v20111011</version>
+				<version>9.2.3.v20140905</version>
 				<configuration>
 					<scanIntervalSeconds>3</scanIntervalSeconds>
-					<webAppConfig>
+					<webApp>
 						<contextPath>/${project.build.finalName}</contextPath>
-					</webAppConfig>
-				</configuration>
+					</webApp>
+                    <stopKey/>
+                    <stopPort/>
+                </configuration>
 			</plugin>
 		</plugins>
 	</build>
 
-	<artifactId>servletjspdemo</artifactId>
+	<artifactId>JavaEE-zad1</artifactId>
 </project>
 
