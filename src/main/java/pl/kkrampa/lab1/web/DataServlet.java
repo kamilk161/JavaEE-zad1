@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import pl.kkrampa.lab1.domain.Dzien;
 import pl.kkrampa.lab1.domain.Pogoda;
@@ -25,8 +26,13 @@ public class DataServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		response.setContentType("text/html");
+        HttpSession session = request.getSession();
+        if(session.getAttribute("username") == null) {
+            response.sendRedirect("index.jsp");
+            return;
+        }
+        String username = (String)session.getAttribute("username");
+        response.setContentType("text/html");
         response.setCharacterEncoding("utf-8");
 		Boolean hasErrors = false;
         StringBuilder getParameters = new StringBuilder("?");
@@ -88,6 +94,7 @@ public class DataServlet extends HttpServlet {
                 "    </div><!-- /.container-fluid -->\n" +
                 "</nav>" +
                 "<div class='container'>" +
+                "<span>Witaj, " + username + "! <a href='wyloguj.jsp'>Wyloguj się.</a></span>" +
                 "<table class=\"table table-bordered\">" +
                 "<thead><tr>" +
                 "<th style='width: 22%'>Data</th><th style='width: 22%'>Imieniny</th><th>Pogoda</th><th>Zdjecie</th>" +

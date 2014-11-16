@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(urlPatterns = "/index")
 public class FormServlet extends HttpServlet {
@@ -20,7 +21,13 @@ public class FormServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+        HttpSession session = request.getSession();
+        if(session.getAttribute("username") == null) {
+            response.sendRedirect("index.jsp");
+            return;
+        }
+
+        String username = (String)session.getAttribute("username");
 		response.setContentType("text/html");
 		response.setCharacterEncoding("utf-8");
 		
@@ -50,6 +57,7 @@ public class FormServlet extends HttpServlet {
                 "</head>" +
 				"<body>" +
 				"<div class='container'>" +
+                "<span>Witaj, " + username + "! <a href='wyloguj.jsp'>Wyloguj się.</a></span>" +
 				"<h2>Lab1</h2>" +
 				"<form class=\"form-horizontal\" action='data' method='POST'>" +
                 "<div class='form-group " + (params.contains("data") ? "has-error" : "") + "'>" +

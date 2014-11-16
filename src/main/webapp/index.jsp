@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <html>
 <head>
     <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
@@ -8,15 +10,22 @@
     <title>Strona logowania</title>
 </head>
 <body>
+    <c:if test="${sessionScope['username'] != null}">
+        <c:redirect url="index"/>
+    </c:if>
     <div class="container">
-        <form role="form">
-            <div class="form-group">
+        <form role="form" action="loguj.jsp" method="POST">
+
+            <div class="form-group ${requestScope['username'] != null ? "has-error" : ""}">
                 <label for="login">Login</label>
-                <input type="text" class="form-control" id="login" placeholder="Wprowadź login">
+                <input type="text" class="form-control" name="login" id="login"
+                       placeholder="Wprowadź login" required>
+                <span class="help-block">${requestScope['username']}</span>
             </div>
-            <div class="form-group">
+            <div class="form-group ${requestScope['password'] != null ? "has-error" : ""}">
                 <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Hasło">
+                <input type="password" class="form-control" name="password" id="password" placeholder="Hasło" required>
+                <span class="help-block">${requestScope['password']}</span>
             </div>
             <button type="submit" class="btn btn-default">Submit</button>
         </form>

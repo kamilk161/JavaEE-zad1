@@ -1,12 +1,14 @@
 package pl.kkrampa.lab1.domain;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 
     private String login;
 
     private String password;
 
-    private String rpassword;
+    private transient String rpassword;
 
     public String getLogin() {
         return login;

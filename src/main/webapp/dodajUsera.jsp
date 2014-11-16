@@ -1,5 +1,3 @@
-<%@ page import="java.util.Set" %>
-<%@ page import="java.util.Map" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -18,11 +16,15 @@
 
     <c:set var="created" value="${users.addUser(user)}" scope="session"/>
     <c:choose>
-        <c:when test="${created}">
+        <c:when test="${created == true}">
             <c:redirect url="index.jsp"/>
         </c:when>
         <c:otherwise>
-            <c:redirect url="rejestracja.jsp"/>
+            <c:set var="login" value="Login zajęty" scope="request"/>
+            <c:if test="${user.password != user.rpassword}">
+                <c:set var="password" value="Hasłą są różne!" scope="request"/>
+            </c:if>
+            <jsp:forward page="rejestracja.jsp"/>
         </c:otherwise>
     </c:choose>
 
